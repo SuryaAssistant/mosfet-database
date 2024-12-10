@@ -16,7 +16,9 @@ The repository is organized as follows:
 ```
 
 ## Example File Format
-Each MOSFET has its own .json file under the `parameters/` directory, detailing the key parameters:
+Each MOSFET has its own .json file under the `parameters/` directory. For `json` template, please copy `template.json`.
+
+Detailing the key parameters:
 
 ```
 {
@@ -55,7 +57,6 @@ Each MOSFET has its own .json file under the `parameters/` directory, detailing 
     "Td_off": 89,
     "Tr": 75,
     "Tf": 29,
-    "vf_max": 1.2,
     "datasheet" : "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2404191548_Siliup-SP010N02AGHTO_C22385351.pdf"
 }
 ```
@@ -81,6 +82,7 @@ This repository tracks MOSFET parameters, including:
 - idm: Maximum pulsed drain current (A)
 - eas: Singel pulsed avalanche energy (mJ)
 - pd: Power dissipasion (W)
+- derating: Derating factor (W/°C)
 - rjc: Thermal resistance junction-to-case (°C/W)
 - rja: Thermal resistance junction-to-ambient (°C/W)
 - t_stg_min, t_stg_max: Storage temperature (°C)
@@ -89,11 +91,15 @@ This repository tracks MOSFET parameters, including:
 - idss_max: Maximum drain-source leakage current (uA)
 - igss_max: Maximum gate-source leakage current (nA)
 - vgs_th_min, vgs_th_typ, vgs_th_max: Gate threshold voltage (V)
+- gfs_min: Forward transconductance (S)
 - ciss, coss, crss: Capacitance between mosfet terminal (pF)
 - Qg, Qgs, Qgd: MOSFET charge (nC)
 - Td_on, Td_off: MOSFET delay (n sec)
 - Tr, Tf: Mosfet rise and fall time (n sec)
-- vf_max: Maximum MOSFET diode forward voltage (V)
+- vsd_max: Maximum MOSFET diode forward voltage (V)
+- is_max: Maximum diode forward current (A)
+- Trr: Diode reverse recovery time (n sec)
+- Qrr: Diode reverse recovery charge (nC)
 
 ## Usage
 - Search the repository for the MOSFET part number.
