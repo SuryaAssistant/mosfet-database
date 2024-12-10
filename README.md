@@ -30,29 +30,13 @@ Detailing the key parameters:
     "ids": 340,
     "rds_typ": 1.3,
     "rds_max": 1.65,
-    "vgs_max": 20,
     "vgs_min": -20,
-    "idm": 1360,
-    "eas": 558,
-    "pd": 400,
-    "rjc": 0.38,
-    "rja": "-",
-    "t_stg_min": -55,
-    "t_stg_max": 150,
-    "t_j_min": -55,
-    "t_j_max": 150,
-    "bvdss_min": 100,
-    "idss_max": 1,
-    "igss_max": 100,
-    "vgs_th_min": 2,
-    "vgs_tg_typ": 2.6,
-    "vgs_th_max": 4,
-    "ciss": 13531,
-    "coss": 1889,
-    "crss": 82,
-    "Qg": 198,
-    "Qgs": 51,
-    "Qgd": 37,
+    "vgs_max": 20,
+    
+    .
+    .
+    .
+
     "Td_on": 25,
     "Td_off": 89,
     "Tr": 75,
@@ -61,51 +45,68 @@ Detailing the key parameters:
 }
 ```
 
+## MOSFET Parameters
+This repository tracks MOSFET parameters, including:
+
+| Parameter | Variant | Description | Test Condition | Unit |
+| :---: | :---: | :--- | :--- | :---: |
+| `name` | `name` | Product name from manufacture | | |
+| `manufacture` | `manufacture` | MOSFET manufacture | | |
+| `type` | `type` | MOSFET Type.<br/>Example : `N-channel`, `P-channel` | | |
+| `package` | `package` | MOSFET Package.<br/>Example : `TO-220AB`, `D2PAK`, etc. | |
+| `vds` | `vds` | Maximum drain-source voltage | | V |
+| `ids` | `ids`, `ids_100` | Mosfet drain current | `ids` : @Tc 25°C <br/> `ids_100` : @Tc 25°C | A |
+| `idm` | `idm` | Mosfet pulsed drain current | | A |
+| `vgs` | `vgs_min`, `vgs_max` | Gate voltage | | | V |
+| `eas` | `eas` | Single pulse avalanche energy | | mJ |
+| `ias` | `ias` | Avalanche current | | A |
+| `pd`  | `pd`  | Maximum power dissipation | @Tc 25°C | W |
+| `derating` | `derating` | Mosfet linear derating factor | | W/°C |
+| `rjc` | `rjc` | Junction-to-case thermal resistance | | °C/W |
+| `rjs` | `rjs` | Junction-to-sink thermal resistance | | °C/W |
+| `rja` | `rja` | Junction-to-ambient thermal resistance | | °C/W |
+| `t_stg` | `t_stg_min`, `t_stg_max` | Storage temperature | | °C |
+| `t_j` | `t_j_min`, `t_j_max` | Junction temperature | | °C |
+| `bvdss` | `bvdss_min` | Minimum MOSFET breakdown voltage | @Vgs 0V | V |
+| `bvdss_coeff` | `bvdss_coeff` | Breakdown voltage temperature coeffisien | @Tj 25°C | V/°C |
+| `idss` | `idss_max` | Drain-to-Source leakage current | @Tj 25°C | uA |
+| `igss` | `igss_max` | Gate-to-Source leakage current |  | +/- nA |
+| `vgs_th` | `vgs_th_min`, `vgs_th_typ`, `vgs_th_max` | Gate-source voltage threshold | | V |
+| `rds` | `rds_typ`, `rds_max` | MOSFET Rds(on) | @Vgs 10V | mΩ |
+| `rg` | `rg`, `rg_max` | MOSFET gate internal resistance | | Ω |
+| `gfs` | `gfs_min`, `gfs_typ`, `gfs_max` | Forward Transinductance | | S |
+| `ciss` | `ciss_min`, `ciss`, `ciss_max` | Input capacitance | | pF |
+| `coss` | `coss_min`, `coss`, `coss_max` | Output capacitance | | pF |
+| `crss` | `crss_min`, `crss`, `crss_max` | Reverse transfer capacitance | | pF |
+| `Qg` | `Qg_min`, `Qg`, `Qg_max` | Total gate charge | | nC |
+| `Qgs` | `Qgs_min`, `Qgs`, `Qgs_max` | Gate-to-source charge | | nC |
+| `Qgd` | `Qgd_min`, `Qgd`, `Qgd_max` | Gate-to-drain ("Miller") charge | | nC |
+| `Qsw` | `Qsw_min`, `Qsw`, `Qsw_max` | Switching charge | | nC |
+| `Qoss` | `Qoss_min`, `Qoss`, `Qoss_max` | Output charge | | nC |
+| `vplateau` | `vplateau_min`, `vplateau`, `vplateau_max` | MOSFET plateau ("Miller") voltage | | V |
+| `Td_on` | `Td_on` | Turn-on delay | | n sec |
+| `Tr` | `Tr` | Rise time | | n sec |
+| `Td_off` | `Td_off` | Turn-off delay | | n sec |
+| `Tf` | `Tf` | Fall time | | n sec |
+| `vsd` | `vsd_min`, `vsd_typ`, `vsd_max` | MOSFET internal diode forward voltage | | V |
+| `is` | `is_max` | MOSFET internal diode forward current | | V |
+| `is_pulse` | `is_pulse_max` | MOSFET internal diode pulsed current | | A |
+| `Trr` | `Trr`,  `Trr_max` | Diode reverse recovery time | @Tj 25°C | n sec |
+| `Qrr` | `Qrr`, `Qrr_max` | Diode reverse recovery charge | @Tj 25°C | n sec |
+| `datasheet` | `datasheet` | Source of datasheet external link | | | 
+
+
+## Usage
+- Search the repository for the MOSFET part number.
+- View the corresponding parameter file or datasheet.
+- Use the data in your design calculations or simulations.
+
 ## Contributing
 We welcome contributions! If you have MOSFET data or datasheets to add:
 
 1. Fork the repository and create a branch for your contribution.
 2. Add the MOSFET parameter file to the appropriate directory under `parameters/`.
 3. Submit a pull request with a clear description of your changes.
-
-## MOSFET Parameters
-This repository tracks MOSFET parameters, including:
-
-- name: MOSFET name from manufacture
-- manufacture: The source manufacture of MOSFET
-- type: N-Channel or P-Channel of MOSFET
-- vds: Maximum drain-source voltage (V)
-- ids: Maximum drain current (A)
-- rds_type, rds_max: MOSFET Rds(on) (mΩ)
-- rg: gate resistance (Ω)
-- Vds_max: Maximum drain-source voltage (Volt)
-- vgs_min, vgs_max: MOSFET gate voltage (Volt)
-- idm: Maximum pulsed drain current (A)
-- eas: Singel pulsed avalanche energy (mJ)
-- pd: Power dissipasion (W)
-- derating: Derating factor (W/°C)
-- rjc: Thermal resistance junction-to-case (°C/W)
-- rja: Thermal resistance junction-to-ambient (°C/W)
-- t_stg_min, t_stg_max: Storage temperature (°C)
-- t_j_min, t_j_max: Junction temperature (°C)
-- bvdss_min: Minimum MOSFET breakdown voltage (V)
-- idss_max: Maximum drain-source leakage current (uA)
-- igss_max: Maximum gate-source leakage current (nA)
-- vgs_th_min, vgs_th_typ, vgs_th_max: Gate threshold voltage (V)
-- gfs_min, gfs_typ, gfs_max: Forward transconductance (S)
-- ciss, coss, crss: Capacitance between mosfet terminal (pF)
-- Qg, Qgs, Qgd: MOSFET charge (nC)
-- Td_on, Td_off: MOSFET delay (n sec)
-- Tr, Tf: Mosfet rise and fall time (n sec)
-- vsd_max: Maximum MOSFET diode forward voltage (V)
-- is_max: Maximum diode forward current (A)
-- Trr: Diode reverse recovery time (n sec)
-- Qrr: Diode reverse recovery charge (nC)
-
-## Usage
-- Search the repository for the MOSFET part number.
-- View the corresponding parameter file or datasheet.
-- Use the data in your design calculations or simulations.
 
 ## License
 This repository is licensed under the MIT License. Feel free to use and distribute the content with proper attribution.
