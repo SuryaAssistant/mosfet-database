@@ -11,7 +11,7 @@
     "vgs_max": 20,
     "eas": 60,
     "pd": 57,
-    "derating": ,
+    "derating": null,
     "rjc": 2.2,
     "rja": 50,
     "t_stg_min": -55,
