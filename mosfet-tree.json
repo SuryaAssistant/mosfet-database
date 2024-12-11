@@ -1,0 +1,10 @@
+[
+    {
+        "name" : "NCEP15T14D",
+        "parent" : "./parameters/n-channel/D2PAK_TO263/"
+    },
+    {
+        "name" : "CJAC70SN15",
+        "parent" : "./parameters/n-channel/PDFNWB5x6-8L/"
+    }
+]

@@ -1,0 +1,86 @@
+/* HTML */
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #272829;
+}
+
+/* General font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+}
+
+/* General Color */
+.prime-color{
+    color: #0563BB;
+}
+
+.white-color{
+    color: #efefef !important;
+}
+
+.prime-background{
+    background-color: #0563BB !important;
+}
+
+.pure-white-background{
+    background-color: #ffffff !important;
+}
+
+/* Elements */
+
+
+/* Element class */
+.navbar{
+    height:60px;
+}
+
+.navbar-brand{
+    color: #0563BB !important;
+    margin-left: 10px;
+}
+
+.menu{
+    color: #efefef !important;
+    background-color: #0563BB !important;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left:20px;
+}
+
+.menu-active{
+    color: #fff !important;
+    background-color: #357bbd !important;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left:20px;
+}
+
+.menu-icon{
+    font-size:24px !important;
+}
+
+.card{
+    border-color: #0563BB !important;
+    flex: 0 0 auto; /* Prevent cards from shrinking or growing */
+}
+
+.card-filter{
+    margin-right: 20px;
+}
+.card-header{
+    background-color: #ffffff !important;
+}
+
+.y-scroll {
+    display: flex !important; /* Use flexbox for horizontal alignment */
+    flex-wrap: nowrap !important;
+    gap: 0.5rem; /* Optional: spacing between cards */
+    margin: 0px !important;
+    max-width: 100%; /* Limit the width to the container */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical scrolling */
+    box-sizing: border-box; /* Include padding in width */
+}
+  
