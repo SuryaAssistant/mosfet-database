@@ -9,6 +9,22 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Raleway", sans-serif;
 }
 
+h4 {
+    font-weight: bold !important;
+    color: #0563BB;
+    margin-bottom: 20px;
+}
+
+h5 {
+    font-size: 16px !important;
+    background-color: #0563BB;
+    color: white;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    width: fit-content;
+    padding: 4px;
+}
+
 /* General Color */
 .prime-color{
     color: #0563BB;
@@ -30,6 +46,11 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* Element class */
+.param{
+    font-size:12px !important;
+    margin-bottom:5px;
+}
+
 .navbar{
     height:60px;
 }
@@ -83,4 +104,49 @@ h1, h2, h3, h4, h5, h6 {
     overflow-y: hidden; /* Hide vertical scrolling */
     box-sizing: border-box; /* Include padding in width */
 }
-  
+
+
+
+.btn{
+    color: #ffffff !important;
+}
+
+.btn-sidebar{
+    background-color: transparent;
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.btn-sidebar:hover{
+    background-color: #357bbd;
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.btn-sidebar:not(:disabled):not(.disabled):active,
+.btn-sidebar:not(:disabled):not(.disabled).active,
+.show>.btn-sidebar.dropdown-toggle {
+    color: #357bbd;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.btn-sidebar-active{
+    background-color: #357bbd !important;
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.btn-sidebar-active:hover{
+    background-color: #357bbd !important;
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.btn-sidebar-active:not(:disabled):not(.disabled):active,
+.btn-sidebar-active:not(:disabled):not(.disabled).active,
+.show>.btn-sidebar-active.dropdown-toggle {
+    color: transparent !important;
+    background-color: transparent;
+    border-color: transparent;
+}

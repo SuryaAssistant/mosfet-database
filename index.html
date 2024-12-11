@@ -28,32 +28,29 @@
             <div class="row" style="height: 100%; width:100%">
                 <!-- Tab Menu -->
                 <div class="col-md-2 prime-background">
-                    <div class="row menu-active">
-                        <div class="col-2"><i class='bx bxs-data menu-icon'></i></div>
-                        <div class="col">
-                            Database
-                        </div>
+                    <div class="row">
+                        <button type="button" id="btn-menu-0" class="btn btn-sidebar-active" onclick="menu(0)">                                    
+                            <i class='bx bxs-data menu-icon'></i> Database
+                        </button>
                     </div>
 
-                    <div class="row menu">
-                        <div class="col-2"><i class='bx bxs-calculator menu-icon' ></i></div>
-                        <div class="col">
-                            Power Calculator
-                        </div>
+                    <div class="row">
+                        <button type="button" id="btn-menu-1" class="btn btn-sidebar" onclick="menu(1)">                                    
+                            <i class='bx bxs-calculator menu-icon'></i> Power Calculator
+                        </button>
                     </div>
 
-                    <div class="row menu">
-                        <div class="col-2"><i class='bx bxs-calculator menu-icon' ></i></div>
-                        <div class="col">
-                            Switching Calculator
-                        </div>
+                    <div class="row">
+                        <button type="button" id="btn-menu-2" class="btn btn-sidebar" onclick="menu(2)">                                    
+                            <i class='bx bxs-calculator menu-icon'></i> Switching Calculator
+                        </button>
                     </div>
                 </div>
 
                 <!-- Content Field -->
                 <div class="col-md-10">
                     <!-- Database -->
-                    <div class="row" id="mosfet-database" style="overflow-y: auto; margin:0px">
+                    <div class="row" id="mosfet-database" style="overflow-y: auto; margin:0px; display:block">
                         <div class="container">
                             <div class="col">
                                 <h4>Filter</h4>
@@ -134,50 +131,123 @@
                                 </div>
 
                                 <div class="row y-scroll">
-                                        <table class="table table-hover">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col" >Manufacture Parts</th>
-                                                <th scope="col" >Manufacture</th>
-                                                <th scope="col" >Vdss</th>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">Rds</th>
-                                                <th scope="col"></th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row"></th>
-                                                <td>a</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td colspan="2">Larry the Bird</td>
-                                                <td>@twitter</td>
-                                              </tr>
-
-                                              <tr>
-                                                <td colspan="4">Larry the Bird</td>
-                                              </tr>
-
-
-                                            </tbody>
-                                        </table>
+                                    <table class="table table-hover" style="font-size: 12px;">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col" ></th>
+                                            <th scope="col" >MFR Part#</th>
+                                            <th scope="col" >Manufacturer</th>
+                                            <th scope="col" >VDS (V)</th>
+                                            <th scope="col" >IDS (V)</th>
+                                            <th scope="col" >R (mΩ)</th>
+                                            <th scope="col" ></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="mosfet-table">
+                                        </tbody>
+                                    </table>
                                 </div>
+
+                                <div class="row" style="text-align:center; padding-bottom: 10px;">
+                                    <div class="col"></div>
+                                    <div class="col-5">
+                                        <button type="button" class="btn btn-light" style="color: #0563bb !important" onclick="page('prev')"><i class='bx bx-chevron-left' ></i></button>
+                                        <button type="button" class="btn btn-primary" id="page-number">1</button>
+                                        <button type="button" class="btn btn-light" style="color: #0563bb !important" onclick="page('next')"><i class='bx bx-chevron-right'></i></button>
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculation -->
+                    <div class="row" id="power-calculator" style="overflow-y: auto; margin:0px; display:none">
+                        <div class="container">
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="switching-calculator" style="overflow-y: auto; margin:0px; display:none">
+                        <div class="container">
+                            <div class="col">
+                                <h4 style="margin-bottom:20px">Mosfet Switching Calculator</h4>
+                                <h5>Input Parameter</h5>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="param">Input Voltage / VDS (V)</span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" id="input-bus-voltage" class="form-control param">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="param">Output Current / ID (A)</span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" id="input-output-current" class="form-control param">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="param">Duty Cycle (%)</span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" id="input-duty-cycle" class="form-control param">
+                                    </div>
+                                </div>
+
+                                <h5>Switching Parameter</h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="param">Gate-Source Voltage / Vgs (V)</span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" id="input-vgs" class="form-control param">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="param">Switching Frequency / f (Hz)</span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" id="input-switching-frequency" class="form-control param">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="param">Rise-time / Tr (nanosec) </span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" id="input-rise-time" class="form-control param">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="param">Fall-time / Tf (nanosec) </span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" id="input-fall-time" class="form-control param">
+                                    </div>
+                                </div>
+
+                                <div class="row" style="text-align: right; margin-top: 10px;">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" onclick="calculateLoss(['NCEP15T14D', 'IRFP4568PbF'])">Calculate</button>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="result-field">
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -193,7 +263,14 @@
         <script>
             var tempoStorage = [];
             var mosfetTree = [];
-            var database = []; 
+            var database = [];
+            var databaseDisplay = [] 
+
+            var displaySize = 10;
+            var mosfetTreeLength = 0;
+            var prevListRow = -1;
+            var userPage = 1;
+            var pageMax = 1;
 
             async function fetchJson(filePath) {
                 try {
@@ -206,25 +283,121 @@
                 }
             }
 
+            function fillMosfetTable(startNumber){
+                // fill the display
+                const tableElement = document.getElementById('mosfet-table')
+                tableElement.innerHTML = ``;
+                for(let i=0; i<displaySize; i++){
+                    if(startNumber + i >= mosfetTreeLength){return;}
+                    tableElement.innerHTML += `
+                        <tr>
+                            <td><input class="form-check-input me-1" type="checkbox" id="check-${startNumber+i}" onClick="checkboxMosfet(${startNumber+i})" ${database[startNumber + i].isChecked ? "checked" : ""}></td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].name}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].manufacture}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].vds}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].ids}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].rds_typ}</td>
+                        </tr>
+                    `;
+
+                    tableElement.innerHTML += `
+                        <tr id="mosfet-details-${startNumber+i}" style="display:none">
+                            <td colspan="5" id="mosfet-details-${startNumber+i}-p"></td>
+                        </tr>
+                    `;
+
+                }
+            }
+
+            function openMosfetDetails(startNumber, number){
+                for(let i=0; i<displaySize; i++){
+                    if(startNumber + i >= mosfetTreeLength){continue;}
+
+                    let id = "mosfet-details-"+String(startNumber+i);
+                    let detailElement = document.getElementById(id);
+                    detailElement.style.display = "none";
+                }
+
+                if(prevListRow == number){
+                    prevListRow = -1;
+                    return;
+                }
+
+                let id = "mosfet-details-"+String(number);
+                let detailElement = document.getElementById(id);
+                detailElement.style.display = "contents";
+
+                const detailsPElement = document.getElementById('mosfet-details-'+String(number)+'-p');
+                let keys = [];
+                Object.keys(database[number]).forEach((key) => keys.push(key));
+
+                for(let j=0; j<keys.length; j++){
+                    detailsPElement.innerHTML += `<span>${keys[j]} : ${database[number][keys[j]]}</span><br/>`;
+                }
+
+                prevListRow = number;
+            }
+
+            function page(move){
+                if(move == "next"){
+                    if(userPage < pageMax){userPage += 1;}
+                }
+                else{
+                    if(userPage > 1){userPage -= 1;}
+                }
+
+                // update page number
+                document.getElementById('page-number').textContent = userPage;
+
+                // update mosfet table
+                let startNumber = userPage * displaySize - displaySize;
+                fillMosfetTable(startNumber);
+            }
+
+            function checkboxMosfet(number){
+                let isElementChecked = document.getElementById('check-'+String(number)).checked;
+                if(database[number].isChecked != isElementChecked){
+                    database[number].isChecked = isElementChecked;
+                }
+            }
+
+
             // Wait for the window to be fully loaded
             window.onload = () => {
                 fetchJson('./mosfet-tree.json') // Replace with your actual JSON URL
                 .then(() => {
+                    for(let i=0; i<displaySize; i++){
+                        databaseDisplay.push({});
+                    }
+
                     mosfetTree.push(tempoStorage);
                     tempoStorage = [];
 
                     let treeLength = mosfetTree[0].length;
+                    mosfetTreeLength = treeLength;
+                    pageMax = Math.floor(treeLength / displaySize) + 1;
+
+                    for(let i=0; i<treeLength; i++){
+                        database.push({});
+                    }
+
                     for(let i=0; i<treeLength; i++){
                         let paramLoc = mosfetTree[0][i].parent + mosfetTree[0][i].name + '.json';
                         fetchJson(paramLoc)
                         .then(() => {
-                            database.push(tempoStorage);
+                            database[i] = tempoStorage;
+                            database[i].isChecked = false;
                             tempoStorage = [];
+
+                            if(i == displaySize-1){
+                                fillMosfetTable(0);
+                            }
                         })
                         .catch(error => {
                             console.log('Error in fetch param', error);
                         });
                     }
+
                 })
                 .catch(error => {
                     console.error('Error in fetchJson:', error);
@@ -233,6 +406,8 @@
             };
         
         </script>
+        <script src="./assets/js/menu.js"></script>
+        <script src="./assets/js/calculator.js"></script>
 
     </body>
 </html>

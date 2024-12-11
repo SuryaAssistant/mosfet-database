@@ -6,5 +6,45 @@
     {
         "name" : "CJAC70SN15",
         "parent" : "./parameters/n-channel/PDFNWB5x6-8L/"
+    },
+    {
+        "name" : "BSC093N15NS5",
+        "parent" : "./parameters/n-channel/PG-TDSON-8/"
+    },
+    {
+        "name" : "BSC520N15NS3G",
+        "parent" : "./parameters/n-channel/PG-TDSON-8/"
+    },
+    {
+        "name" : "HSBA20N15S",
+        "parent" : "./parameters/n-channel/PRPAK5x6/"
+    },
+    {
+        "name" : "IRFB4127PbF",
+        "parent" : "./parameters/n-channel/TO-220AB/"
+    },
+    {
+        "name" : "IRFP4568PbF",
+        "parent" : "./parameters/n-channel/TO-247AC/"
+    },
+    {
+        "name" : "AGM15T03LL",
+        "parent" : "./parameters/n-channel/TOLL/"
+    },
+    {
+        "name" : "MOT7136T",
+        "parent" : "./parameters/n-channel/TOLL/"
+    },
+    {
+        "name" : "SP010N02AGHTO",
+        "parent" : "./parameters/n-channel/TOLL/"
+    },
+    {
+        "name" : "SP015N03BGHTO",
+        "parent" : "./parameters/n-channel/TOLL/"
+    },
+    {
+        "name" : "SP015N06GHTO",
+        "parent" : "./parameters/n-channel/TOLL/"
     }
 ]
