@@ -388,7 +388,10 @@
 
                 searchedDatabase = []
                 for(let i=0; i<database.length; i++){
-                    if(database[i].name.toLowerCase().includes(searchedMosfet.toLowerCase()) || database[i].manufacture.toLowerCase().includes(searchedMosfet.toLowerCase())){
+                    if(database[i].name.toLowerCase().includes(searchedMosfet.toLowerCase()) 
+                        || database[i].manufacture.toLowerCase().includes(searchedMosfet.toLowerCase())
+                        || database[i].type.toLowerCase().includes(searchedMosfet.toLowerCase())
+                        || database[i].package.toLowerCase().includes(searchedMosfet.toLowerCase())){
                         searchedDatabase.push(database[i]);
                     }
                     else{continue;}

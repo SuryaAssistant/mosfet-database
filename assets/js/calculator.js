@@ -63,10 +63,18 @@ function calculateLoss(mosfets){
                 </div>
                 <div class="row param">
                     <div class="col">
-                        <span>Gate peak current : </span>
+                        <span>Gate source peak current : </span>
                     </div>
                     <div class="col" style="text-align:right">
-                        <span id="result-ig-peak-${i}"></span><span> A</span>
+                        <span id="result-ig-source-peak-${i}"></span><span> A</span>
+                    </div>
+                </div>
+                <div class="row param">
+                    <div class="col">
+                        <span>Gate sink peak current : </span>
+                    </div>
+                    <div class="col" style="text-align:right">
+                        <span id="result-ig-sink-peak-${i}"></span><span> A</span>
                     </div>
                 </div>
 
@@ -125,7 +133,8 @@ function calculateLoss(mosfets){
         `;
 
         // calculate
-        let igpeak = (mosfetData[i].Qg/1000000000) / (inputRiseTimeValue / 1000000000);
+        let igsourcepeak = (mosfetData[i].Qg/1000000000) / (inputRiseTimeValue / 1000000000);
+        let igsinkpeak = (mosfetData[i].Qg/1000000000) / (inputFallTimeValue / 1000000000);
         let pcond = (inputOutputCurrentValue * inputOutputCurrentValue) * (mosfetData[0].rds_typ / 1000) * (inputDutyCycleValue/100);
         let psw = 0.5 * inputBusVoltageValue * inputOutputCurrentValue * ((inputRiseTimeValue + inputFallTimeValue) / 1000000000) * inputSwitchingFrequency;
         let pcoss = 0.5 * (mosfetData[i].coss/1000000000000) * (inputBusVoltageValue * inputBusVoltageValue) * inputSwitchingFrequency;
@@ -134,7 +143,8 @@ function calculateLoss(mosfets){
 
         // show value
         document.getElementById('result-mosfet-name-'+String(i)).textContent = mosfetData[i].name;
-        document.getElementById('result-ig-peak-'+String(i)).textContent = igpeak.toFixed(3);
+        document.getElementById('result-ig-source-peak-'+String(i)).textContent = igsourcepeak.toFixed(3);
+        document.getElementById('result-ig-sink-peak-'+String(i)).textContent = igsinkpeak.toFixed(3);
         document.getElementById('result-cond-loss-'+String(i)).textContent = pcond.toFixed(3);
         document.getElementById('result-sw-loss-'+String(i)).textContent = psw.toFixed(3);
         document.getElementById('result-coss-loss-'+String(i)).textContent = pcoss.toFixed(3);
