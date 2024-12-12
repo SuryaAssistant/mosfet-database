@@ -130,6 +130,7 @@
                                             <input type="text" class="form-control param" placeholder="Search MOSFET" id="search-mosfet-input">
                                             <button class="btn btn-primary param" onclick="searchMosfet()">Search</button>
                                         </div>
+                                        <span style="font-size: 12px;">Result : </span><span id="result-total-searched-mosfet" style="font-size: 12px;"></span>
                                     </div>
                                 </div>
                                 <div class="row y-scroll">
@@ -320,6 +321,9 @@
                     `;
 
                 }
+
+                // fill searcher result count
+                document.getElementById('result-total-searched-mosfet').innerText = searchedDatabase.length;
             }
 
             function openMosfetDetails(startNumber, number){
@@ -394,6 +398,8 @@
                 userPage = 1;
                 document.getElementById('page-number').textContent = userPage;
                 fillMosfetTable(0);
+                // fill searcher result count
+                document.getElementById('result-total-searched-mosfet').innerText = searchedDatabase.length;
             }
 
 
