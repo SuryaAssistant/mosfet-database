@@ -124,6 +124,14 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group" style="margin-top: 20px; max-width: 300px;">
+                                            <input type="text" class="form-control param" placeholder="Search MOSFET" id="search-mosfet-input">
+                                            <button class="btn btn-primary param" onclick="searchMosfet()">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row y-scroll">
                                     <table class="table table-hover" style="font-size: 12px;">
                                         <thead>
@@ -261,7 +269,9 @@
             var tempoStorage = [];
             var mosfetTree = [];
             var database = [];
-            var databaseDisplay = [] 
+            var searchedDatabase = [];
+            var isSearched = false;
+            var databaseDisplay = [];
 
             var displaySize = 10;
             var mosfetTreeLength = 0;
@@ -285,21 +295,21 @@
                 const tableElement = document.getElementById('mosfet-table')
                 tableElement.innerHTML = ``;
                 for(let i=0; i<displaySize; i++){
-                    if(startNumber + i >= mosfetTreeLength){return;}
+                    if(startNumber + i >= searchedDatabase.length){return;}
                     tableElement.innerHTML += `
                         <tr>
-                            <td><input class="form-check-input me-1" type="checkbox" id="check-${startNumber+i}" onClick="checkboxMosfet(${startNumber+i})" ${database[startNumber + i].isChecked ? "checked" : ""}></td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].name}</td>
-                            <td ><a href="${database[startNumber+i].datasheet}" target="_blank" rel="noopener noreferrer"><i class='bx bxs-file-pdf'></i></a></td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].manufacture}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].type}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].package}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].vds}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].ids}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].rds_typ}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].crss}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].coss}</td>
-                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].Qg}</td>
+                            <td><input class="form-check-input me-1" type="checkbox" id="check-${startNumber+i}" onClick="checkboxMosfet(${startNumber+i})" ${searchedDatabase[startNumber + i].isChecked ? "checked" : ""}></td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].name}</td>
+                            <td ><a href="${searchedDatabase[startNumber+i].datasheet}" target="_blank" rel="noopener noreferrer"><i class='bx bxs-file-pdf'></i></a></td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].manufacture}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].type}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].package}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].vds}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].ids}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].rds_typ}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].crss}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].coss}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${searchedDatabase[startNumber+i].Qg}</td>
                         </tr>
                     `;
 
@@ -314,7 +324,7 @@
 
             function openMosfetDetails(startNumber, number){
                 for(let i=0; i<displaySize; i++){
-                    if(startNumber + i >= mosfetTreeLength){continue;}
+                    if(startNumber + i >= searchedDatabase.length){continue;}
 
                     let id = "mosfet-details-"+String(startNumber+i);
                     let detailElement = document.getElementById(id);
@@ -332,10 +342,11 @@
 
                 const detailsPElement = document.getElementById('mosfet-details-'+String(number)+'-p');
                 let keys = [];
-                Object.keys(database[number]).forEach((key) => keys.push(key));
+                Object.keys(searchedDatabase[number]).forEach((key) => keys.push(key));
 
+                detailsPElement.innerHTML = ``;
                 for(let j=0; j<keys.length; j++){
-                    detailsPElement.innerHTML += `<span>${keys[j]} : ${database[number][keys[j]]}</span><br/>`;
+                    detailsPElement.innerHTML += `<span>${keys[j]} : ${searchedDatabase[number][keys[j]]}</span><br/>`;
                 }
 
                 prevListRow = number;
@@ -343,6 +354,7 @@
 
             function page(move){
                 if(move == "next"){
+                    pageMax = Math.floor(searchedDatabase.length / displaySize) + 1;
                     if(userPage < pageMax){userPage += 1;}
                 }
                 else{
@@ -365,6 +377,26 @@
             }
 
 
+            function searchMosfet(){
+                isSearched = true;
+                let searchElement = document.getElementById('search-mosfet-input');
+                let searchedMosfet = searchElement.value;
+
+                searchedDatabase = []
+                for(let i=0; i<database.length; i++){
+                    if(database[i].name.toLowerCase().includes(searchedMosfet.toLowerCase()) || database[i].manufacture.toLowerCase().includes(searchedMosfet.toLowerCase())){
+                        searchedDatabase.push(database[i]);
+                    }
+                    else{continue;}
+                }
+
+                // display
+                userPage = 1;
+                document.getElementById('page-number').textContent = userPage;
+                fillMosfetTable(0);
+            }
+
+
             // Wait for the window to be fully loaded
             window.onload = () => {
                 fetchJson('./mosfet-tree.json') // Replace with your actual JSON URL
@@ -378,7 +410,6 @@
 
                     let treeLength = mosfetTree[0].length;
                     mosfetTreeLength = treeLength;
-                    pageMax = Math.floor(treeLength / displaySize) + 1;
 
                     for(let i=0; i<treeLength; i++){
                         database.push({});
@@ -393,6 +424,8 @@
                             tempoStorage = [];
 
                             if(i == displaySize-1){
+                                searchedDatabase = [];
+                                searchedDatabase = database;
                                 fillMosfetTable(0);
                             }
                         })
