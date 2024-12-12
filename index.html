@@ -20,36 +20,29 @@
         <!-- Navbar -->
         <nav class="navbar sticky-top bg-body-tertiary pure-white-background">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"><Strong>Mosfet Database</Strong></a>
+                <div class="col">
+                    <a class="navbar-brand" href=""><Strong>Mosfet Database</Strong></a>
+                </div>
+                <div class="col" style="text-align: right;">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSemChTOIrG7bC3fkWSs0DgiqArsukzqh1s5NM-EwwNWEtRayQ/viewform?usp=sharing">
+                        <button type="button" class="btn btn-primary">Request Mosfet</button>
+                    </a>
+                </div>
             </div>
         </nav>
 
-        <section class="d-flex flex-column" style="padding-bottom:0px; height: calc(100vh - 60px)">
-            <div class="col">
-            <div class="row" style="height: 100%; margin:0px">
-                <!-- Tab Menu -->
-                <div class="col-md-2 prime-background">
-                    <div class="row">
-                        <button type="button" id="btn-menu-0" class="btn btn-sidebar-active" onclick="menu(0)">                                    
-                            <i class='bx bxs-data menu-icon'></i> Database
-                        </button>
-                    </div>
+        <div class="sidebar">
+            <a id="btn-menu-0" class="active" href="#" onclick="menu(0)"><i class='bx bxs-data menu-icon'></i> Database</a>
+            <a id="btn-menu-1" href="#" onclick="menu(1)"><i class='bx bxs-calculator menu-icon'></i> Power Calculator</a>
+            <a id="btn-menu-2" href="#" onclick="menu(2)"><i class='bx bxs-calculator menu-icon'></i> Switching Calculator</a>
+        </div>
 
-                    <div class="row">
-                        <button type="button" id="btn-menu-1" class="btn btn-sidebar" onclick="menu(1)">                                    
-                            <i class='bx bxs-calculator menu-icon'></i> Power Calculator
-                        </button>
-                    </div>
 
-                    <div class="row">
-                        <button type="button" id="btn-menu-2" class="btn btn-sidebar" onclick="menu(2)">                                    
-                            <i class='bx bxs-calculator menu-icon'></i> Switching Calculator
-                        </button>
-                    </div>
-                </div>
+        <section class="d-flex flex-column" style="padding-bottom:0px;">
+            <div class="content">
+            <div class="row" style="margin:0px">
 
                 <!-- Content Field -->
-                <div class="col-md-10">
                     <!-- Database -->
                     <div class="row" id="mosfet-database" style="overflow-y: auto; margin:0px; display:block">
                         <div class="container">
@@ -253,7 +246,6 @@
                         </div>
                     </div>
 
-                </div>
             </div>
         </div>
         </section>

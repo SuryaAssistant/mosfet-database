@@ -1,4 +1,5 @@
 function menu(choosedMenu){
+    console.log(choosedMenu)
     let menuButton = [];
     menuButton.push(document.getElementById('btn-menu-0'));
     menuButton.push(document.getElementById('btn-menu-1'));
@@ -12,16 +13,15 @@ function menu(choosedMenu){
 
 
     // deactival all button and page
-    for(let i=0; i<menuButton.length; i++){
-        menuButton[i].classList.remove('btn-sidebar-active');
-        menuButton[i].classList.add('btn-sidebar');
+    for(let i=0; i<menuPage.length; i++){
+        menuButton[i].classList.remove('active');
 
         menuPage[i].style.display = 'none';
     }
 
     // only activate selected button
-    menuButton[choosedMenu].classList.remove('btn-sidebar');
-    menuButton[choosedMenu].classList.add('btn-sidebar-active');
+    //menuButton[choosedMenu].classList.remove('btn-sidebar');
+    menuButton[choosedMenu].classList.add('active');
 
     menuPage[choosedMenu].style.display = 'block';
 }
