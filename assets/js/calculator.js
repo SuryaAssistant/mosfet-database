@@ -39,7 +39,7 @@ function calculateLoss(mosfets){
                 </div>
                 <div class="row param">
                     <div class="col">
-                        <span>VDS Max</span>
+                        <span>VDS Max (Datasheet)</span>
                     </div>
                     <div class="col" style="text-align:right">
                         <span id="info-vds-${i}"></span><span> V</span>
@@ -47,7 +47,7 @@ function calculateLoss(mosfets){
                 </div>
                 <div class="row param">
                     <div class="col">
-                        <span>ID Max</span>
+                        <span>ID Max (Datasheet)</span>
                     </div>
                     <div class="col" style="text-align:right">
                         <span id="info-id-${i}"></span><span> A</span>
