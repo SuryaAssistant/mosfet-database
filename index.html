@@ -40,7 +40,7 @@
 
         <section class="d-flex flex-column" style="padding-bottom:0px;">
             <div class="content">
-            <div class="row" style="margin:0px">
+            <div class="row" style="margin:0px; margin-top:20px">
 
                 <!-- Content Field -->
                     <!-- Database -->
@@ -128,13 +128,18 @@
                                     <table class="table table-hover" style="font-size: 12px;">
                                         <thead>
                                             <tr>
-                                            <th scope="col" ></th>
-                                            <th scope="col" >MFR Part#</th>
-                                            <th scope="col" >Manufacturer</th>
+                                            <th scope="col" style="width: 20px !important;" ></th>
+                                            <th scope="col" style="width: 140px !important">MFR Part#</th>
+                                            <th scope="col" style="width: 20px !important;"></th>
+                                            <th scope="col" style="width: 200px !important">Manufacturer</th>
+                                            <th scope="col" >Type</th>
+                                            <th scope="col" >Package</th>
                                             <th scope="col" >VDS (V)</th>
                                             <th scope="col" >IDS (V)</th>
                                             <th scope="col" >R (mΩ)</th>
-                                            <th scope="col" ></th>
+                                            <th scope="col" >Crss (pF)</th>
+                                            <th scope="col" >Coss (pF)</th>
+                                            <th scope="col" >Qg (nC)</th>
                                             </tr>
                                         </thead>
                                         <tbody id="mosfet-table">
@@ -143,13 +148,11 @@
                                 </div>
 
                                 <div class="row" style="text-align:center; padding-bottom: 10px;">
-                                    <div class="col"></div>
-                                    <div class="col-5">
+                                    <div class="col">
                                         <button type="button" class="btn btn-light" style="color: #0563bb !important" onclick="page('prev')"><i class='bx bx-chevron-left' ></i></button>
                                         <button type="button" class="btn btn-primary" id="page-number">1</button>
                                         <button type="button" class="btn btn-light" style="color: #0563bb !important" onclick="page('next')"><i class='bx bx-chevron-right'></i></button>
                                     </div>
-                                    <div class="col"></div>
                                 </div>
                             </div>
                         </div>
@@ -287,10 +290,16 @@
                         <tr>
                             <td><input class="form-check-input me-1" type="checkbox" id="check-${startNumber+i}" onClick="checkboxMosfet(${startNumber+i})" ${database[startNumber + i].isChecked ? "checked" : ""}></td>
                             <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].name}</td>
+                            <td ><a href="${database[startNumber+i].datasheet}" target="_blank" rel="noopener noreferrer"><i class='bx bxs-file-pdf'></i></a></td>
                             <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].manufacture}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].type}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].package}</td>
                             <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].vds}</td>
                             <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].ids}</td>
                             <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].rds_typ}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].crss}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].coss}</td>
+                            <td onclick="openMosfetDetails(${startNumber}, ${startNumber+i})">${database[startNumber+i].Qg}</td>
                         </tr>
                     `;
 
