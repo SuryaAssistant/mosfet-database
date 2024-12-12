@@ -34,23 +34,21 @@ function calculateLoss(mosfets){
             <div class="col">
                 <div class="row param">
                     <div class="col">
-                        <span>MOSFET INFORMATION</span>
+                        <span class="prime-color">MOSFET INFORMATION</span>
                     </div>
                 </div>
                 <div class="row param">
                     <div class="col">
                         <span>VDS Max (Datasheet)</span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="info-vds-${i}"></span><span> V</span>
+                    <div class="col" style="text-align:right" id="info-vds-${i}">
                     </div>
                 </div>
                 <div class="row param">
                     <div class="col">
                         <span>ID Max (Datasheet)</span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="info-id-${i}"></span><span> A</span>
+                    <div class="col" style="text-align:right" id="info-id-${i}">
                     </div>
                 </div>
                 
@@ -58,23 +56,35 @@ function calculateLoss(mosfets){
                 
                 <div class="row param">
                     <div class="col">
-                        <span>GATE CALCULATION</span>
+                        <span class="prime-color">GATE CALCULATION</span>
                     </div>
                 </div>
                 <div class="row param">
                     <div class="col">
-                        <span>Gate source peak current : </span>
+                        <span>Total Gate Charge (Datasheet)</span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="result-ig-source-peak-${i}"></span><span> A</span>
+                    <div class="col" style="text-align:right" id="info-gc-${i}">
                     </div>
                 </div>
                 <div class="row param">
                     <div class="col">
-                        <span>Gate sink peak current : </span>
+                        <span>Gate Source Peak Current : </span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="result-ig-sink-peak-${i}"></span><span> A</span>
+                    <div class="col" style="text-align:right" id="result-ig-source-peak-${i}">
+                    </div>
+                </div>
+                <div class="row param">
+                    <div class="col">
+                        <span>Gate Sink Peak Current : </span>
+                    </div>
+                    <div class="col" style="text-align:right" id="result-ig-sink-peak-${i}">
+                    </div>
+                </div>
+                <div class="row param">
+                    <div class="col">
+                        <span>Max Gate Resistor : </span>
+                    </div>
+                    <div class="col" style="text-align:right" id="result-gate-res-${i}">
                     </div>
                 </div>
 
@@ -82,15 +92,14 @@ function calculateLoss(mosfets){
 
                 <div class="row param">
                     <div class="col">
-                        <span>LOSS CALCULATION</span>
+                        <span class="prime-color">LOSS CALCULATION</span>
                     </div>
                 </div>
                 <div class="row param">
                     <div class="col">
                         <span>Conduction Loss / Pcond : </span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="result-cond-loss-${i}"></span><span> W</span>
+                    <div class="col" style="text-align:right" id="result-cond-loss-${i}">
                     </div>
                 </div>
 
@@ -98,8 +107,7 @@ function calculateLoss(mosfets){
                     <div class="col">
                         <span>Switching Loss / Psw : </span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="result-sw-loss-${i}"></span><span> W</span>
+                    <div class="col" style="text-align:right" id="result-sw-loss-${i}">
                     </div>
                 </div>
 
@@ -107,8 +115,7 @@ function calculateLoss(mosfets){
                     <div class="col">
                         <span>Output Capacitance Loss / Pcoss : </span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="result-coss-loss-${i}"></span><span> W</span>
+                    <div class="col" style="text-align:right" id="result-coss-loss-${i}">
                     </div>
                 </div>
 
@@ -116,8 +123,7 @@ function calculateLoss(mosfets){
                     <div class="col">
                         <span>Gate charge Loss / Pgc : </span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="result-gc-loss-${i}"></span><span> W</span>
+                    <div class="col" style="text-align:right" id="result-gc-loss-${i}">
                     </div>
                 </div>
 
@@ -125,8 +131,7 @@ function calculateLoss(mosfets){
                     <div class="col">
                         <span>Total Loss / Ptotal : </span>
                     </div>
-                    <div class="col" style="text-align:right">
-                        <span id="result-total-loss-${i}"></span><span> W</span>
+                    <div class="col" style="text-align:right" id="result-total-loss-${i}">
                     </div>
                 </div>
             </div>
@@ -141,17 +146,37 @@ function calculateLoss(mosfets){
         let pgc = (mosfetData[i].Qg/1000000000) * inputVgsValue * inputSwitchingFrequency;
         let ptot = pcond + psw + pcoss + pgc;
 
+        let higherPeakCurrent = igsourcepeak;
+        if(igsinkpeak > igsourcepeak){higherPeakCurrent = igsinkpeak;}
+        let gateResistor = inputVgsValue / higherPeakCurrent;
+
         // show value
         document.getElementById('result-mosfet-name-'+String(i)).textContent = mosfetData[i].name;
-        document.getElementById('result-ig-source-peak-'+String(i)).textContent = igsourcepeak.toFixed(3);
-        document.getElementById('result-ig-sink-peak-'+String(i)).textContent = igsinkpeak.toFixed(3);
-        document.getElementById('result-cond-loss-'+String(i)).textContent = pcond.toFixed(3);
-        document.getElementById('result-sw-loss-'+String(i)).textContent = psw.toFixed(3);
-        document.getElementById('result-coss-loss-'+String(i)).textContent = pcoss.toFixed(3);
-        document.getElementById('result-gc-loss-'+String(i)).textContent = pgc.toFixed(3);
-        document.getElementById('result-total-loss-'+String(i)).textContent = ptot.toFixed(3);
-        document.getElementById('info-vds-'+String(i)).textContent = mosfetData[i].vds.toFixed(0);
-        document.getElementById('info-id-'+String(i)).textContent = mosfetData[i].ids.toFixed(0);
+        document.getElementById('result-ig-source-peak-'+String(i)).textContent = String(igsourcepeak.toFixed(3)) + " A";
+        document.getElementById('result-ig-sink-peak-'+String(i)).textContent = String(igsinkpeak.toFixed(3)) + " A";
+        document.getElementById('result-gate-res-'+String(i)).textContent = String(gateResistor.toFixed(3)) + " Ω";
+        document.getElementById('result-cond-loss-'+String(i)).textContent = String(pcond.toFixed(3)) + " W";
+        document.getElementById('result-sw-loss-'+String(i)).textContent = String(psw.toFixed(3)) + " W";
+        document.getElementById('result-coss-loss-'+String(i)).textContent = String(pcoss.toFixed(3)) + " W";
+        document.getElementById('result-gc-loss-'+String(i)).textContent = String(pgc.toFixed(3)) + " W";
+        document.getElementById('result-total-loss-'+String(i)).textContent = String(ptot.toFixed(3)) + " W";
+
+        document.getElementById('info-vds-'+String(i)).textContent = String(mosfetData[i].vds.toFixed(0)) + " V";
+        document.getElementById('info-id-'+String(i)).textContent = String(mosfetData[i].ids.toFixed(0)) + " A";
+        document.getElementById('info-gc-'+String(i)).textContent = String(mosfetData[i].Qg.toFixed(0)) + " nC";
+
+
+
+        // check eligibility of every parameter
+        if(inputBusVoltageValue > mosfetData[i].vds){
+            document.getElementById('info-vds-'+String(i)).style.backgroundColor = 'red';
+            document.getElementById('info-vds-'+String(i)).style.color = '#ffffff';
+        }
+
+        if(inputOutputCurrentValue > mosfetData[i].ids){
+            document.getElementById('info-id-'+String(i)).style.backgroundColor = 'red';
+            document.getElementById('info-id-'+String(i)).style.color = '#ffffff';
+        }
 
     }
 
