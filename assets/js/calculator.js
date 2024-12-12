@@ -7,15 +7,12 @@ var inputRiseTimeValue = 0;
 var inputFallTimeValue = 0;
 
 function calculateLoss(mosfets){
-    let mosfetLength = mosfets.length;
 
     // copy mosfet data from database
     let mosfetData = [];
-    for(let i=0; i<mosfetLength; i++){
-        for(let j=0; j<mosfetTreeLength; j++){
-            if(database[j].name == mosfets[i]){
-                mosfetData.push(database[j]);
-            }
+    for(let i=0; i<database.length; i++){
+        if(database[i].isChecked){
+            mosfetData.push(database[i]);
         }
     }
 
@@ -37,6 +34,35 @@ function calculateLoss(mosfets){
             <div class="col">
                 <div class="row param">
                     <div class="col">
+                        <span>MOSFET INFORMATION</span>
+                    </div>
+                </div>
+                <div class="row param">
+                    <div class="col">
+                        <span>VDS Max</span>
+                    </div>
+                    <div class="col" style="text-align:right">
+                        <span id="info-vds-${i}"></span><span> V</span>
+                    </div>
+                </div>
+                <div class="row param">
+                    <div class="col">
+                        <span>ID Max</span>
+                    </div>
+                    <div class="col" style="text-align:right">
+                        <span id="info-id-${i}"></span><span> A</span>
+                    </div>
+                </div>
+                
+                <br/>
+                
+                <div class="row param">
+                    <div class="col">
+                        <span>GATE CALCULATION</span>
+                    </div>
+                </div>
+                <div class="row param">
+                    <div class="col">
                         <span>Gate peak current : </span>
                     </div>
                     <div class="col" style="text-align:right">
@@ -46,6 +72,11 @@ function calculateLoss(mosfets){
 
                 <br/>
 
+                <div class="row param">
+                    <div class="col">
+                        <span>LOSS CALCULATION</span>
+                    </div>
+                </div>
                 <div class="row param">
                     <div class="col">
                         <span>Conduction Loss / Pcond : </span>
@@ -109,6 +140,8 @@ function calculateLoss(mosfets){
         document.getElementById('result-coss-loss-'+String(i)).textContent = pcoss.toFixed(3);
         document.getElementById('result-gc-loss-'+String(i)).textContent = pgc.toFixed(3);
         document.getElementById('result-total-loss-'+String(i)).textContent = ptot.toFixed(3);
+        document.getElementById('info-vds-'+String(i)).textContent = mosfetData[i].vds.toFixed(0);
+        document.getElementById('info-id-'+String(i)).textContent = mosfetData[i].ids.toFixed(0);
 
     }
 
