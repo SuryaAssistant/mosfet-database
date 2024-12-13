@@ -46,5 +46,9 @@
     {
         "name" : "SP015N06GHTO",
         "parent" : "./parameters/n-channel/TOLL/"
+    },
+    {
+        "name" : "IRFB4115PbF",
+        "parent" : "./parameters/n-channel/TO-220AB/"
     }
 ]
