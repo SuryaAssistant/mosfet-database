@@ -6,7 +6,14 @@ var inputSwitchingFrequency = 0;
 var inputRiseTimeValue = 0;
 var inputFallTimeValue = 0;
 
-function calculateLoss(mosfets){
+function calculateLoss(){
+
+    // Reset chart data
+    powerLossData.labels = [];
+    powerLossData.datasets[0].data = [];
+    powerLossData.datasets[1].data = [];
+    powerLossData.datasets[2].data = [];
+    powerLossData.datasets[3].data = [];
 
     // copy mosfet data from database
     let mosfetData = [];
@@ -138,13 +145,40 @@ function calculateLoss(mosfets){
         `;
 
         // calculate
-        let igsourcepeak = (mosfetData[i].Qg/1000000000) / (inputRiseTimeValue / 1000000000);
-        let igsinkpeak = (mosfetData[i].Qg/1000000000) / (inputFallTimeValue / 1000000000);
-        let pcond = (inputOutputCurrentValue * inputOutputCurrentValue) * (mosfetData[0].rds_typ / 1000) * (inputDutyCycleValue/100);
-        let psw = 0.5 * inputBusVoltageValue * inputOutputCurrentValue * ((inputRiseTimeValue + inputFallTimeValue) / 1000000000) * inputSwitchingFrequency;
-        let pcoss = 0.5 * (mosfetData[i].coss/1000000000000) * (inputBusVoltageValue * inputBusVoltageValue) * inputSwitchingFrequency;
-        let pgc = (mosfetData[i].Qg/1000000000) * inputVgsValue * inputSwitchingFrequency;
-        let ptot = pcond + psw + pcoss + pgc;
+        let igsourcepeak;
+        let igsinkpeak;
+        let pcond;
+        let psw;
+        let pgc;
+        let ptot;
+
+        // allways use max number first
+        let mosfetQg;
+        let mosfetRds;
+        let mosfetCoss;
+        if(mosfetData[i].Qg_max != null){
+            mosfetQg = mosfetData[i].Qg_max;
+        } else {
+            mosfetQg = mosfetData[i].Qg;
+        }
+        if(mosfetData[i].rds_max != null){
+            mosfetRds = mosfetData[i].rds_max;
+        } else{
+            mosfetRds = mosfetData[i].rds_typ;
+        }
+        if(mosfetData[i].coss_max != null){
+            mosfetCoss = mosfetData[i].coss_max;
+        } else{
+            mosfetCoss  =mosfetData[i].coss;
+        }
+
+        igsourcepeak = (mosfetQg/1000000000) / (inputRiseTimeValue / 1000000000);
+        igsinkpeak = (mosfetQg/1000000000) / (inputFallTimeValue / 1000000000);
+        pcond = (inputOutputCurrentValue * inputOutputCurrentValue) * (mosfetRds / 1000) * (inputDutyCycleValue/100);
+        psw = 0.5 * inputBusVoltageValue * inputOutputCurrentValue * ((inputRiseTimeValue + inputFallTimeValue) / 1000000000) * inputSwitchingFrequency;
+        pcoss = 0.5 * (mosfetCoss/1000000000000) * (inputBusVoltageValue * inputBusVoltageValue) * inputSwitchingFrequency;
+        pgc = (mosfetQg/1000000000) * inputVgsValue * inputSwitchingFrequency;
+        ptot = pcond + psw + pcoss + pgc;
 
         let higherPeakCurrent = igsourcepeak;
         if(igsinkpeak > igsourcepeak){higherPeakCurrent = igsinkpeak;}
@@ -178,6 +212,85 @@ function calculateLoss(mosfets){
             document.getElementById('info-id-'+String(i)).style.color = '#ffffff';
         }
 
+
+        // Add to chart
+        powerLossData.labels.push(mosfetData[i].name);
+        powerLossData.datasets[0].data.push(pcond);
+        powerLossData.datasets[1].data.push(psw);
+        powerLossData.datasets[2].data.push(pcoss);
+        powerLossData.datasets[3].data.push(pgc);
+
+        powerLossChart.update();
     }
 
 }
+
+// Power Loss Chart
+const powerLossData = {
+    labels: [],
+    datasets: [
+        {
+            label: 'Conduction Loss',
+            data: [],
+            backgroundColor: '#1e2749',
+        },
+        {
+            label: 'Switching Loss',
+            data: [],
+            backgroundColor: '#f46d43',
+        },
+        {
+            label: 'Coss Loss',
+            data: [],
+            backgroundColor: '#66bd63',
+        },
+        {
+            label: 'Gate Charge Loss',
+            data: [],
+            backgroundColor: '#ae7dac',
+        }
+    ]
+}; 
+
+const lossChart = document.getElementById('loss-chart');
+const powerLossChart = new Chart(lossChart, {
+    type: 'bar',
+    data: powerLossData,
+    options: {
+        indexAxis: 'y',
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each horizontal bar to be 2px wide
+        elements: {
+          bar: {
+            borderWidth: 2,
+          }
+        },
+        responsive: true,
+        animation: false, // Disable animation
+        maintainAspectRatio: false,
+
+        plugins: {
+            title: {
+                display: true,
+                text: "MOSFET Power Loss"
+            }
+        },
+        scales: {
+            x: {
+                stacked: true,
+                grid: {display: false},
+                ticks: {autoSkip: true},
+                title: {
+                    display: true,
+                    text: 'Power Loss (W)'
+                }
+            },
+            y: {
+                stacked: true,
+                grid: {display: false},
+            }
+        }
+    }
+});
+
+

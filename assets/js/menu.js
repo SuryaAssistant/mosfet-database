@@ -8,8 +8,8 @@ function menu(choosedMenu){
 
     let menuPage = [];
     menuPage.push(document.getElementById('mosfet-database'));
-    menuPage.push(document.getElementById('power-calculator'));
     menuPage.push(document.getElementById('switching-calculator'));
+    menuPage.push(document.getElementById('bootstrap-calculator'));
 
 
     // deactival all button and page
